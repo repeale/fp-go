@@ -25,3 +25,16 @@ func EveryWithIndex[T any](predicate func(T, int) bool) func([]T) bool {
 		return true
 	}
 }
+
+func EveryWithSlice[T any](predicate func(T, int, []T) bool) func([]T) bool {
+	return func(xs []T) bool {
+
+		for i, x := range xs {
+			if !predicate(x, i, xs) {
+				return false
+			}
+		}
+
+		return true
+	}
+}

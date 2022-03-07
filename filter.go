@@ -29,3 +29,18 @@ func FilterWithIndex[T any](predicate func(T, int) bool) func([]T) []T {
 		return result
 	}
 }
+
+func FilterWithSlice[T any](predicate func(T, int, []T) bool) func([]T) []T {
+	return func(xs []T) []T {
+
+		result := []T{}
+
+		for i, x := range xs {
+			if predicate(x, i, xs) {
+				result = append(result, x)
+			}
+		}
+
+		return result
+	}
+}

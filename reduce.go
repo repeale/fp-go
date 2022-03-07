@@ -21,3 +21,14 @@ func ReduceWithIndex[T any, R any](callback func(R, T, int) R, acc R) func([]T) 
 		return acc
 	}
 }
+
+func ReduceWithSlice[T any, R any](callback func(R, T, int, []T) R, acc R) func([]T) R {
+	return func(xs []T) R {
+
+		for i, x := range xs {
+			acc = callback(acc, x, i, xs)
+		}
+
+		return acc
+	}
+}
