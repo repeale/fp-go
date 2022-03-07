@@ -1,5 +1,6 @@
 package fp
 
+// Calls a defined callback function on each element of an array, and returns an array that contains the results.
 func Map[T any, R any](callback func(T) R) func([]T) []R {
 	return func(xs []T) []R {
 

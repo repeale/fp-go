@@ -1,5 +1,6 @@
 package fp
 
+// Determines whether the specified callback function returns true for any element of an array.
 func Some[T any](predicate func(T) bool) func([]T) bool {
 	return func(xs []T) bool {
 

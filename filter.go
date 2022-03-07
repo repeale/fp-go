@@ -1,5 +1,6 @@
 package fp
 
+// Returns the elements of an array that meet the condition specified in a callback function.
 func Filter[T any](predicate func(T) bool) func([]T) []T {
 	return func(xs []T) []T {
 

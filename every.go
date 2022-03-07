@@ -1,5 +1,6 @@
 package fp
 
+// Determines whether all the members of an array satisfy the specified test.
 func Every[T any](predicate func(T) bool) func([]T) bool {
 	return func(xs []T) bool {
 
