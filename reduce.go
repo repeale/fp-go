@@ -1,23 +1,23 @@
 package fp
 
-func Reduce[T any, R any](callback func(R, T) R, initial R) func([]T) R {
+func Reduce[T any, R any](callback func(R, T) R, acc R) func([]T) R {
 	return func(xs []T) R {
 
 		for _, x := range xs {
-			initial = callback(initial, x)
+			acc = callback(acc, x)
 		}
 
-		return initial
+		return acc
 	}
 }
 
-func ReduceWithIndex[T any, R any](callback func(R, T, int) R, initial R) func([]T) R {
+func ReduceWithIndex[T any, R any](callback func(R, T, int) R, acc R) func([]T) R {
 	return func(xs []T) R {
 
 		for i, x := range xs {
-			initial = callback(initial, x, i)
+			acc = callback(acc, x, i)
 		}
 
-		return initial
+		return acc
 	}
 }
