@@ -9,7 +9,7 @@ Requires go 1.18+
 ## Features
 
 - [Currying](#currying)
-- [Variations to get only what you really need](#variations)
+- [Variations](#variations)
 
 ### Currying
 
@@ -105,7 +105,7 @@ fp.FlatMap(func(x int) []int { return []int{x, x} })([]int{1, 2})
 #### Map
 
 ```go
-fp.Map[int64, string](func(x int64) string {
+fp.Map(func(x int64) string {
     return strconv.FormatInt(x, 10)
 })([]int64{1, 2, 3})
 
