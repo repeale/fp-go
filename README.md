@@ -70,6 +70,12 @@ fp.MapWithSlice[int, string](func(x int, i int, xs: []int) { ... })
 [Reduce](#reduce) \
 [Some](#some)
 
+---
+
+[Compose](#compose) \
+[Pipe](#pipe) \
+[Curry](#curry)
+
 #### Every
 
 ```go
@@ -126,4 +132,55 @@ fp.Reduce(func(acc int, curr int) int { return acc + curr }, 0)([]int{1, 2, 3})
 fp.Some(func(x int) bool { return x < 0 })([]int{1, 2, 3})
 
 // => false
+```
+
+---
+
+#### Compose
+
+Performs right-to-left function composition.
+
+Variations `Compose2`, `Compose3` and `Compose4` stating the number of functions you are going to compose.
+
+```go
+func isPositive(x int) bool {
+	return x > 0
+}
+
+func sumTwo(x int) int {
+	return x + 2
+}
+
+Pipe2(fp.Filter(isPositive), fp.Map(sumTwo))([]int{1, 2, 3, -1})
+
+// => []int{3,4,5,1}
+```
+
+#### Pipe
+
+Performs left-to-right function composition.
+
+Variations `Pipe2`, `Pipe3` and `Pipe4` stating the number of functions you are going to compose.
+
+```go
+func isPositive(x int) bool {
+	return x > 0
+}
+
+func sumTwo(x int) int {
+	return x + 2
+}
+
+Pipe2(fp.Filter(isPositive), fp.Map(sumTwo))([]int{1, 2, 3, -1})
+
+// => []int{3,4,5}
+```
+
+#### Curry
+
+Variations `Curry2`, `Curry3` and `Curry4` stating the number of params will be curried individually.
+
+```go
+curryedSum := Curry2(func(a int, b int) int { return a + b })
+curryedSum(1)(2)
 ```
