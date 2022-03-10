@@ -4,7 +4,7 @@
 
 Requires go 1.18+
 
-    go get github.com/lib/pq
+    go get github.com/repeale/fp-go
 
 ## Features
 
