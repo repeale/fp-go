@@ -97,6 +97,8 @@ fp.MapWithSlice[int, string](func(x int, i int, xs: []int) { ... })
 
 #### Every
 
+Determines whether all the members of an array satisfy the specified test.
+
 Variations `EveryWithIndex` and `EveryWithSlice`
 
 ```go
@@ -106,6 +108,8 @@ fp.Every(func(x int) bool { return x > 0 })([]int{1, 2, 3})
 ```
 
 #### Filter
+
+Returns the elements of an array that meet the condition specified in a callback function.
 
 Variations `FilterWithIndex` and `FilterWithSlice`
 
@@ -117,6 +121,8 @@ fp.Filter(func(x int) bool { return x > 0 })([]int{-1, 2, -3, 4})
 
 #### Flat
 
+Returns a new array with all sub-array elements concatenated into it.
+
 ```go
 fp.Flat([][]int{{1, 2}, {3, 4}})
 
@@ -124,6 +130,8 @@ fp.Flat([][]int{{1, 2}, {3, 4}})
 ```
 
 #### FlatMap
+
+Calls a defined callback function on each element of an array. Then, flattens the result into a new array. This is identical to a map followed by flat.
 
 Variations `FlatMapWithIndex` and `FlatMapWithSlice`
 
@@ -134,6 +142,8 @@ fp.FlatMap(func(x int) []int { return []int{x, x} })([]int{1, 2})
 ```
 
 #### Map
+
+Calls a defined callback function on each element of an array, and returns an array that contains the results.
 
 Variations `MapWithIndex` and `MapWithSlice`
 
@@ -147,6 +157,8 @@ fp.Map(func(x int64) string {
 
 #### Reduce
 
+Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+
 Variations `ReduceWithIndex` and `ReduceWithSlice`
 
 ```go
@@ -156,6 +168,8 @@ fp.Reduce(func(acc int, curr int) int { return acc + curr }, 0)([]int{1, 2, 3})
 ```
 
 #### Some
+
+Determines whether the specified callback function returns true for any element of an array.
 
 Variations `SomeWithIndex` and `SomeWithSlice`
 
