@@ -1,10 +1,43 @@
-# fp-go - Functional programming helpers
+# fp-go
+
+[![Go Reference](https://pkg.go.dev/badge/github.com/repeale/fp-go.svg)](https://pkg.go.dev/github.com/repeale/fp-go)
+[![Go Report](https://goreportcard.com/badge/github.com/repeale/fp-go)](https://goreportcard.com/badge/github.com/repeale/fp-go)
+
+Fp-go is a collection of Functional Programming helpers powered by Golang [1.18](https://tip.golang.org/doc/go1.18)+ [generics](https://tip.golang.org/doc/go1.18#generics).
+
+<p align="center">
+  <img 
+    width="500"
+    height="313"
+    src="https://user-images.githubusercontent.com/9580458/162070974-4367f4b8-bb3d-451c-8114-dd578bad4e46.png"
+  >
+</p>
+
+## Contents
+
+- [Install](#install)
+- [Features](#features)
+  - [Currying](#currying)
+  - [Variations](#variations)
+- [Helpers](#helpers)
+  - [Every](#every)
+  - [Filter](#filter)
+  - [Flat](#flat)
+  - [FlatMap](#flatmap)
+  - [Map](#map)
+  - [Reduce](#reduce)
+  - [Some](#some)
+  - [Compose](#compose)
+  - [Pipe](#pipe)
+  - [Curry](#curry)
 
 ## Install
 
 Requires go 1.18+
 
-    go get github.com/repeale/fp-go
+```sh
+go get github.com/repeale/fp-go
+```
 
 ## Features
 
@@ -22,8 +55,8 @@ func isPositive(x int) bool {
 
 func main() {
     filterPositive := fp.Filter(isPositive)
-
     numbers := []int{1, 2, 3, 4, 5}
+
     filterPositive(numbers)
 }
 ```
@@ -62,21 +95,9 @@ fp.MapWithSlice[int, string](func(x int, i int, xs: []int) { ... })
 
 ## Helpers
 
-[Every](#every) \
-[Filter](#filter) \
-[Flat](#flat) \
-[FlatMap](#flatmap) \
-[Map](#map) \
-[Reduce](#reduce) \
-[Some](#some)
-
----
-
-[Compose](#compose) \
-[Pipe](#pipe) \
-[Curry](#curry)
-
 #### Every
+
+Variations `EveryWithIndex` and `EveryWithSlice`
 
 ```go
 fp.Every(func(x int) bool { return x > 0 })([]int{1, 2, 3})
@@ -85,6 +106,8 @@ fp.Every(func(x int) bool { return x > 0 })([]int{1, 2, 3})
 ```
 
 #### Filter
+
+Variations `FilterWithIndex` and `FilterWithSlice`
 
 ```go
 fp.Filter(func(x int) bool { return x > 0 })([]int{-1, 2, -3, 4})
@@ -102,6 +125,8 @@ fp.Flat([][]int{{1, 2}, {3, 4}})
 
 #### FlatMap
 
+Variations `FlatMapWithIndex` and `FlatMapWithSlice`
+
 ```go
 fp.FlatMap(func(x int) []int { return []int{x, x} })([]int{1, 2})
 
@@ -109,6 +134,8 @@ fp.FlatMap(func(x int) []int { return []int{x, x} })([]int{1, 2})
 ```
 
 #### Map
+
+Variations `MapWithIndex` and `MapWithSlice`
 
 ```go
 fp.Map(func(x int64) string {
@@ -120,6 +147,8 @@ fp.Map(func(x int64) string {
 
 #### Reduce
 
+Variations `ReduceWithIndex` and `ReduceWithSlice`
+
 ```go
 fp.Reduce(func(acc int, curr int) int { return acc + curr }, 0)([]int{1, 2, 3})
 
@@ -127,6 +156,8 @@ fp.Reduce(func(acc int, curr int) int { return acc + curr }, 0)([]int{1, 2, 3})
 ```
 
 #### Some
+
+Variations `SomeWithIndex` and `SomeWithSlice`
 
 ```go
 fp.Some(func(x int) bool { return x < 0 })([]int{1, 2, 3})
