@@ -196,7 +196,7 @@ func sumTwo(x int) int {
 	return x + 2
 }
 
-Pipe2(fp.Filter(isPositive), fp.Map(sumTwo))([]int{1, 2, 3, -1})
+Compose2(fp.Filter(isPositive), fp.Map(sumTwo))([]int{1, 2, 3, -1})
 
 // => []int{3,4,5,1}
 ```
