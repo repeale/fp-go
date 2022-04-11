@@ -14,6 +14,7 @@ func Every[T any](predicate func(T) bool) func([]T) bool {
 	}
 }
 
+// See Every but callback receives index of element.
 func EveryWithIndex[T any](predicate func(T, int) bool) func([]T) bool {
 	return func(xs []T) bool {
 
@@ -27,6 +28,7 @@ func EveryWithIndex[T any](predicate func(T, int) bool) func([]T) bool {
 	}
 }
 
+// Like Every but callback receives index of element and the whole array.
 func EveryWithSlice[T any](predicate func(T, int, []T) bool) func([]T) bool {
 	return func(xs []T) bool {
 

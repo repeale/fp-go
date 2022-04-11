@@ -14,6 +14,7 @@ func FlatMap[T any, R any](callback func(T) []R) func([]T) []R {
 	}
 }
 
+// See FlatMap but callback receives index of element.
 func FlatMapWithIndex[T any, R any](callback func(T, int) []R) func([]T) []R {
 	return func(xs []T) []R {
 
@@ -27,6 +28,7 @@ func FlatMapWithIndex[T any, R any](callback func(T, int) []R) func([]T) []R {
 	}
 }
 
+// Like FlatMap but callback receives index of element and the whole array.
 func FlatMapWithSlice[T any, R any](callback func(T, int, []T) []R) func([]T) []R {
 	return func(xs []T) []R {
 
