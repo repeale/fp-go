@@ -85,3 +85,16 @@ func TestMap_None(t *testing.T) {
 		t.Error("Map should return a None value. Received:", res.value)
 	}
 }
+
+func TestChain_Some(t *testing.T) {
+	res := Chain(func(x string) Option[string] { return Some(x + x) })(Some("val"))
+	if res.hasValue != true {
+		t.Error("Chain should return a Some of string. Received:", res.value)
+	}
+}
+func TestChain_None(t *testing.T) {
+	res := Chain(func(x string) Option[string] { return Some(x + x) })(None[string]())
+	if res.hasValue != false {
+		t.Error("Chain should return a None value. Received:", res.value)
+	}
+}
