@@ -223,6 +223,8 @@ Pipe2(fp.Filter(isPositive), fp.Map(sumTwo))([]int{1, 2, 3, -1})
 
 #### Curry
 
+Allow to transfrom a function that receives a certain amount of params in single functions that take one single param each.
+
 Variations `Curry2`, `Curry3` and `Curry4` stating the number of params will be curried individually.
 
 ```go

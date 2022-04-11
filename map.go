@@ -14,6 +14,7 @@ func Map[T any, R any](callback func(T) R) func([]T) []R {
 	}
 }
 
+// See Map but callback receives index of element.
 func MapWithIndex[T any, R any](callback func(T, int) R) func([]T) []R {
 	return func(xs []T) []R {
 
@@ -27,6 +28,7 @@ func MapWithIndex[T any, R any](callback func(T, int) R) func([]T) []R {
 	}
 }
 
+// Like Map but callback receives index of element and the whole array.
 func MapWithSlice[T any, R any](callback func(T, int, []T) R) func([]T) []R {
 	return func(xs []T) []R {
 

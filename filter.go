@@ -16,6 +16,7 @@ func Filter[T any](predicate func(T) bool) func([]T) []T {
 	}
 }
 
+// See Filter but callback receives index of element.
 func FilterWithIndex[T any](predicate func(T, int) bool) func([]T) []T {
 	return func(xs []T) []T {
 
@@ -31,6 +32,7 @@ func FilterWithIndex[T any](predicate func(T, int) bool) func([]T) []T {
 	}
 }
 
+// Like Filter but callback receives index of element and the whole array.
 func FilterWithSlice[T any](predicate func(T, int, []T) bool) func([]T) []T {
 	return func(xs []T) []T {
 
