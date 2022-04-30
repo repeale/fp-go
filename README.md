@@ -242,4 +242,4 @@ curryedSum(1)(2)
 Option represents encapsulation of an optional value, it might be used as the return type of functions which may or may not return a meaningful value when they are applied.
 You could instanciate an `option.Option[T]` with a value with `option.Some(val)`. If the value is missing you can use `option.None[T]()`.
 
-Option exports `Some`, `None`, `IsSome`, `IsNone`, `GetOrElse`, `Match`, `Map`, `Chain`,
+Option exports `Some`, `None`, `IsSome`, `IsNone`, `GetOrElse`, `Match`, `Map`, `Chain`.
