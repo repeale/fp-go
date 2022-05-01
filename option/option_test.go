@@ -1,4 +1,4 @@
-package option
+package opt
 
 import (
 	"testing"
