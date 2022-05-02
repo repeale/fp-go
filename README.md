@@ -31,6 +31,8 @@ Fp-go is a collection of Functional Programming helpers powered by Golang [1.18]
   - [Compose](#compose)
   - [Pipe](#pipe)
   - [Curry](#curry)
+- [Structs](#structs)
+  - [Option](#option)
 
 ## Install
 
@@ -232,3 +234,12 @@ Variations `Curry2`, `Curry3` and `Curry4` stating the number of params will be 
 curryedSum := Curry2(func(a int, b int) int { return a + b })
 curryedSum(1)(2)
 ```
+
+## Structs
+
+#### Option
+
+Option represents encapsulation of an optional value, it might be used as the return type of functions which may or may not return a meaningful value when they are applied.
+You could instanciate an `opt.Option[T]` with a value with `opt.Some(val)`. If the value is missing you can use `opt.None[T]()`.
+
+Option exports `Some`, `None`, `IsSome`, `IsNone`, `GetOrElse`, `Match`, `Map`, `Chain`.
