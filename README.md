@@ -60,7 +60,7 @@ func main() {
     filterPositive := fp.Filter(isPositive)
     numbers := []int{1, 2, 3, 4, 5}
 
-    filterPositive(numbers)
+    positives := filterPositive(numbers)
 }
 ```
 
