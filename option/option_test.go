@@ -76,6 +76,20 @@ func TestGetOrElse_None(t *testing.T) {
 	}
 }
 
+func TestToPtr_Some(t *testing.T) {
+	res := ToPtr(Some("val"))
+	if *res != "val" {
+		t.Error("ToPtr should return a pointer to the Some value. Received:", res)
+	}
+}
+
+func TestToPtr_None(t *testing.T) {
+	res := ToPtr(None[string]())
+	if res != nil {
+		t.Error("ToPtr should return a nil pointer. Received:", res)
+	}
+}
+
 func TestMatch_onSome(t *testing.T) {
 	res := Match(func() string { return "onNone" }, func(x string) string { return x + x })(Some("val"))
 	if res != "valval" {

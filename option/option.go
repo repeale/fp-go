@@ -51,6 +51,15 @@ func GetOrElse[T any](onNone fp.Lazy[T]) func(Option[T]) T {
 	}
 }
 
+// Extracts the value out of the Option as a pointer, if it exists. Otherwise returns a nil pointer
+func ToPtr[T any](option Option[T]) *T {
+	if IsNone(option) {
+		return nil
+	}
+
+	return &option.value
+}
+
 // Extracts the value out of the Option, if it exists, with a function. Otherwise returns the function with a default value
 func Match[T any](onNone fp.Lazy[T], onSome fp.LazyVal[T]) func(Option[T]) T {
 	return func(option Option[T]) T {
