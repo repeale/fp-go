@@ -20,6 +20,15 @@ func None[T any]() Option[T] {
 	return Option[T]{}
 }
 
+// Constructor for Option from a pointer. nil pointer == None, otherwise Some
+func FromPtr[T any](ptr *T) Option[T] {
+	if ptr == nil {
+		return None[T]()
+	}
+
+	return Some(*ptr)
+}
+
 // Helper to check if the Option has a value
 func IsSome[T any](option Option[T]) bool {
 	return option.hasValue
