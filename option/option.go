@@ -103,3 +103,12 @@ func Filter[T any](fn fp.Pred[T]) func(o Option[T]) Option[T] {
 		return option
 	}
 }
+
+// Removes one level of nesting at a time. Option[Option[T]] -> Option[T]
+func Flat[T any](option Option[Option[T]]) Option[T] {
+	if IsNone(option) {
+		return None[T]()
+	}
+
+	return option.value
+}

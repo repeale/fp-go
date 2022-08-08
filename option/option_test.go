@@ -140,3 +140,27 @@ func TestFilter_None(t *testing.T) {
 		t.Error("Filter should return a struct with hasValue set to false. Received:", res.value)
 	}
 }
+
+func TestFlat_Some_Some(t *testing.T) {
+	res := Flat(Some(Some(42)))
+	if res.hasValue != true {
+		t.Error("Flat should return a struct with hasValue set to true. Received:", res.value)
+	}
+	if res.value != 42 {
+		t.Error("Flat should return a struct with the same value as the original (42). Received:", res.value)
+	}
+}
+
+func TestFlat_Some_None(t *testing.T) {
+	res := Flat(Some(None[int]()))
+	if res.hasValue != false {
+		t.Error("Flat should return a struct with hasValue set to false. Received:", res.value)
+	}
+}
+
+func TestFlat_None(t *testing.T) {
+	res := Flat(None[Option[int]]())
+	if res.hasValue != false {
+		t.Error("Flat should return a struct with hasValue set to false. Received:", res.value)
+	}
+}
