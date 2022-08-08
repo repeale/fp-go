@@ -18,6 +18,24 @@ func TestNone(t *testing.T) {
 	}
 }
 
+func TestFromPtr(t *testing.T) {
+	i := 1
+
+	res := FromPtr(&i)
+
+	if res.hasValue != true {
+		t.Error("FromPtr should return a struct with hasValue set to true. Received:", res.hasValue)
+	}
+}
+
+func TestFromPtrNil(t *testing.T) {
+	res := FromPtr[int](nil)
+
+	if res.hasValue != false {
+		t.Error("FromPtr should return a struct with hasValue set to false. Received:", res.hasValue)
+	}
+}
+
 func TestIsSome_Some(t *testing.T) {
 	res := IsSome(Some("value"))
 	if res != true {
@@ -96,5 +114,29 @@ func TestChain_None(t *testing.T) {
 	res := Chain(func(x string) Option[string] { return Some(x + x) })(None[string]())
 	if res.hasValue != false {
 		t.Error("Chain should return a None value. Received:", res.value)
+	}
+}
+
+func TestFilter_Some_True(t *testing.T) {
+	res := Filter(func(x int) bool { return x > 10 })(Some(42))
+	if res.hasValue != true {
+		t.Error("Filter should return a struct with hasValue set to true. Received:", res.value)
+	}
+	if res.value != 42 {
+		t.Error("Filter should return a struct with the same value as the original (42). Received:", res.value)
+	}
+}
+
+func TestFilter_Some_False(t *testing.T) {
+	res := Filter(func(x int) bool { return x < 10 })(Some(42))
+	if res.hasValue != false {
+		t.Error("Filter should return a struct with hasValue set to false. Received:", res.value)
+	}
+}
+
+func TestFilter_None(t *testing.T) {
+	res := Filter(func(x int) bool { return x < 10 })(None[int]())
+	if res.hasValue != false {
+		t.Error("Filter should return a struct with hasValue set to false. Received:", res.value)
 	}
 }
