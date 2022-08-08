@@ -86,3 +86,20 @@ func Chain[A any, B any](fn func(a A) Option[B]) func(Option[A]) Option[B] {
 		return fn(a.value)
 	}
 }
+
+// Execute a predicate on the Option value if it exists.
+// If the result is false or the Option is empty, return the empty Option.
+// Otherwise, return the option itself
+func Filter[T any](fn fp.Pred[T]) func(o Option[T]) Option[T] {
+	return func(option Option[T]) Option[T] {
+		if IsNone(option) {
+			return None[T]()
+		}
+
+		if !fn(option.value) {
+			return None[T]()
+		}
+
+		return option
+	}
+}
