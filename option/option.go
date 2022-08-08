@@ -34,6 +34,13 @@ func IsSome[T any](option Option[T]) bool {
 	return option.hasValue
 }
 
+// Helper to check if the Option has a value and if that value satisfies a predicate
+func IsSomeAnd[T any](pred fp.Pred[T]) func(Option[T]) bool {
+	return func(option Option[T]) bool {
+		return option.hasValue && pred(option.value)
+	}
+}
+
 // Helper to check if the Option is missing the value
 func IsNone[T any](option Option[T]) bool {
 	return !option.hasValue

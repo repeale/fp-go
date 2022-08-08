@@ -27,8 +27,7 @@ func TestFromPtr(t *testing.T) {
 		t.Error("FromPtr should return a struct with hasValue set to true. Received:", res.hasValue)
 	}
 }
-
-func TestFromPtrNil(t *testing.T) {
+func TestFromPtr_Nil(t *testing.T) {
 	res := FromPtr[int](nil)
 
 	if res.hasValue != false {
@@ -46,6 +45,25 @@ func TestIsSome_None(t *testing.T) {
 	res := IsSome(None[string]())
 	if res != false {
 		t.Error("IsSome should return false. Received:", res)
+	}
+}
+
+func TestIsSomeAnd_Some_True(t *testing.T) {
+	res := IsSomeAnd(func(x int) bool { return x > 10 })(Some(42))
+	if res != true {
+		t.Error("IsSomeAnd should return true. Received:", res)
+	}
+}
+func TestIsSomeAnd_Some_False(t *testing.T) {
+	res := IsSomeAnd(func(x int) bool { return x < 10 })(Some(42))
+	if res != false {
+		t.Error("IsSomeAnd should return false. Received:", res)
+	}
+}
+func TestIsSomeAnd_None(t *testing.T) {
+	res := IsSomeAnd(func(x int) bool { return x < 10 })(None[int]())
+	if res != false {
+		t.Error("IsSomeAnd should return false. Received:", res)
 	}
 }
 
@@ -68,7 +86,6 @@ func TestGetOrElse_Some(t *testing.T) {
 		t.Error("GetOrElse should return the Some value. Received:", res)
 	}
 }
-
 func TestGetOrElse_None(t *testing.T) {
 	res := GetOrElse(func() string { return "elseValue" })(None[string]())
 	if res != "elseValue" {
@@ -82,7 +99,6 @@ func TestToPtr_Some(t *testing.T) {
 		t.Error("ToPtr should return a pointer to the Some value. Received:", res)
 	}
 }
-
 func TestToPtr_None(t *testing.T) {
 	res := ToPtr(None[string]())
 	if res != nil {
@@ -96,7 +112,6 @@ func TestMatch_onSome(t *testing.T) {
 		t.Error("Match should return the onSome() value. Received:", res)
 	}
 }
-
 func TestMatch_onNone(t *testing.T) {
 	res := Match(func() string { return "onNone" }, func(x string) string { return x + x })(None[string]())
 	if res != "onNone" {
@@ -110,7 +125,6 @@ func TestMap_Some(t *testing.T) {
 		t.Error("Map should return the result of the callback function. Received:", res.value)
 	}
 }
-
 func TestMap_None(t *testing.T) {
 	res := Map(func(x string) string { return x + x })(None[string]())
 	if res.hasValue != false {
@@ -140,14 +154,12 @@ func TestFilter_Some_True(t *testing.T) {
 		t.Error("Filter should return a struct with the same value as the original (42). Received:", res.value)
 	}
 }
-
 func TestFilter_Some_False(t *testing.T) {
 	res := Filter(func(x int) bool { return x < 10 })(Some(42))
 	if res.hasValue != false {
 		t.Error("Filter should return a struct with hasValue set to false. Received:", res.value)
 	}
 }
-
 func TestFilter_None(t *testing.T) {
 	res := Filter(func(x int) bool { return x < 10 })(None[int]())
 	if res.hasValue != false {
@@ -164,14 +176,12 @@ func TestFlat_Some_Some(t *testing.T) {
 		t.Error("Flat should return a struct with the same value as the original (42). Received:", res.value)
 	}
 }
-
 func TestFlat_Some_None(t *testing.T) {
 	res := Flat(Some(None[int]()))
 	if res.hasValue != false {
 		t.Error("Flat should return a struct with hasValue set to false. Received:", res.value)
 	}
 }
-
 func TestFlat_None(t *testing.T) {
 	res := Flat(None[Option[int]]())
 	if res.hasValue != false {
