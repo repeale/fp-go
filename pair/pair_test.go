@@ -141,3 +141,29 @@ func TestCheckBoth_False_False(t *testing.T) {
 		t.Error("CheckBoth should return false. Received:", res)
 	}
 }
+
+func TestMergeC(t *testing.T) {
+	mul := func(a int) func(int) int {
+		return func(b int) int {
+			return a * b
+		}
+	}
+
+	res := MergeC(mul)(Pair(21, 2))
+
+	if res != 42 {
+		t.Error("MergeC should return 42. Received:", res)
+	}
+}
+
+func TestMerge(t *testing.T) {
+	mul := func(a, b int) int {
+		return a * b
+	}
+
+	res := Merge(mul)(Pair(21, 2))
+
+	if res != 42 {
+		t.Error("Merge should return 42. Received:", res)
+	}
+}

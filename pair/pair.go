@@ -67,3 +67,17 @@ func CheckBoth[A, B any](fnF func(A) bool, fnS func(B) bool) func(Tuple[A, B]) b
 		return fnF(t.a) && fnS(t.b)
 	}
 }
+
+// Merge the elements of a Tuple with a Curried function
+func MergeC[A, B, C any](fn func(A) func(B) C) func(Tuple[A, B]) C {
+	return func(t Tuple[A, B]) C {
+		return fn(t.a)(t.b)
+	}
+}
+
+// Merge the elements of a Tuple with a non-Curried function
+func Merge[A, B, C any](fn func(A, B) C) func(Tuple[A, B]) C {
+	return func(t Tuple[A, B]) C {
+		return fn(t.a, t.b)
+	}
+}
