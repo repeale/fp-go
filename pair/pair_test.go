@@ -2,6 +2,20 @@ package pair
 
 import "testing"
 
+func eq[A, B comparable](ps1, ps2 []Pair[A, B]) bool {
+	if len(ps1) != len(ps2) {
+		return false
+	}
+
+	for i := 0; i < len(ps1); i++ {
+		if !Eq(ps1[i])(ps2[i]) {
+			return false
+		}
+	}
+
+	return true
+}
+
 func TestNew(t *testing.T) {
 	res := New(42, "42")
 	if res.a != 42 {
@@ -143,27 +157,71 @@ func TestCheckBoth_False_False(t *testing.T) {
 }
 
 func TestMergeC(t *testing.T) {
-	mul := func(a int) func(int) int {
-		return func(b int) int {
-			return a * b
-		}
-	}
+	mul := func(a int) func(int) int { return func(b int) int { return a * b } }
 
 	res := MergeC(mul)(New(21, 2))
-
 	if res != 42 {
 		t.Error("MergeC should return 42. Received:", res)
 	}
 }
 
 func TestMerge(t *testing.T) {
-	mul := func(a, b int) int {
-		return a * b
-	}
+	mul := func(a, b int) int { return a * b }
 
 	res := Merge(mul)(New(21, 2))
-
 	if res != 42 {
 		t.Error("Merge should return 42. Received:", res)
+	}
+}
+
+func TestZip_EqLen(t *testing.T) {
+	res := Zip[bool]([]int{1, 2, 3, 4, 5})([]bool{true, true, false, false, true})
+	want := []Pair[int, bool]{New(1, true), New(2, true), New(3, false), New(4, false), New(5, true)}
+	if !eq(res, want) {
+		t.Error("Zip should have returned", want, ". Received:", res)
+	}
+}
+
+func TestZip_Large_Fst(t *testing.T) {
+	res := Zip[bool]([]int{1, 2, 3, 4, 5})([]bool{true, true, false})
+	want := []Pair[int, bool]{New(1, true), New(2, true), New(3, false)}
+	if !eq(res, want) {
+		t.Error("Zip should have returned", want, ". Received:", res)
+	}
+}
+
+func TestZip_Large_Snd(t *testing.T) {
+	res := Zip[bool]([]int{1, 2, 3})([]bool{true, true, false, false, true})
+	want := []Pair[int, bool]{New(1, true), New(2, true), New(3, false)}
+	if !eq(res, want) {
+		t.Error("Zip should have returned", want, ". Received:", res)
+	}
+}
+
+func TestEq_True_True(t *testing.T) {
+	res := Eq(New(42, 21))(New(42, 21))
+	if res != true {
+		t.Error("Eq should return true. Received:", res)
+	}
+}
+
+func TestEq_True_False(t *testing.T) {
+	res := Eq(New(42, 21))(New(42, 100))
+	if res != false {
+		t.Error("Eq should return false. Received:", res)
+	}
+}
+
+func TestEq_False_True(t *testing.T) {
+	res := Eq(New(21, 42))(New(100, 42))
+	if res != false {
+		t.Error("Eq should return false. Received:", res)
+	}
+}
+
+func TestEq_False_False(t *testing.T) {
+	res := Eq(New(42, 21))(New(84, 42))
+	if res != false {
+		t.Error("Eq should return false. Received:", res)
 	}
 }

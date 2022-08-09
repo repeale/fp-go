@@ -81,3 +81,25 @@ func Merge[A, B, C any](fn func(A, B) C) func(Pair[A, B]) C {
 		return fn(t.a, t.b)
 	}
 }
+
+// Check two Pairs for element-by-element equality. The types must be comparable
+func Eq[A, B comparable](p1 Pair[A, B]) func(Pair[A, B]) bool {
+	return func(p2 Pair[A, B]) bool {
+		return p1.a == p2.a && p1.b == p2.b
+	}
+}
+
+// Take 2 lists of A and B and merge them into a single list of Pair[A, B]
+// If the lists don't have the same size, the final list will have the same size as the smaller one
+func Zip[B, A any](lstA []A) func([]B) []Pair[A, B] {
+	return func(lstB []B) (res []Pair[A, B]) {
+		i := 0
+
+		for i < len(lstA) && i < len(lstB) {
+			res = append(res, New(lstA[i], lstB[i]))
+			i++
+		}
+
+		return
+	}
+}
