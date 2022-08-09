@@ -35,3 +35,37 @@ func TestGet(t *testing.T) {
 		t.Error("Get should return \"42\" as the second value. Received:", res2)
 	}
 }
+
+func TestMapFst(t *testing.T) {
+	res := MapFst[int, string](func(x int) int { return x + 1 })(Pair(41, "42"))
+	if Fst(res) != 42 {
+		t.Error("MapFirst should return 42 as a first value. Received:", Fst(res))
+	}
+	if Snd(res) != "42" {
+		t.Error("MapFst should leave the second value \"42\" alone. Received:", Snd(res))
+	}
+}
+
+func TestMapSnd(t *testing.T) {
+	res := MapSnd[string, int](func(x int) int { return x + 1 })(Pair("42", 41))
+	if Fst(res) != "42" {
+		t.Error("MapSnd should leave the first value \"42\" alone. Received:", Fst(res))
+	}
+	if Snd(res) != 42 {
+		t.Error("MapFirst should return 42 as a second value. Received:", Snd(res))
+	}
+}
+
+func TestMapBoth(t *testing.T) {
+	res := MapBoth(
+		func(x bool) bool { return !x },
+		func(x int) int { return x + 1 },
+	)(Pair(false, 41))
+
+	if Fst(res) != true {
+		t.Error("MapBoth should return true as the first value. Received:", Fst(res))
+	}
+	if Snd(res) != 42 {
+		t.Error("MapBoth should return 42 as the second value. Received:", Snd(res))
+	}
+}
