@@ -33,6 +33,7 @@ Fp-go is a collection of Functional Programming helpers powered by Golang [1.18]
   - [Curry](#curry)
 - [Structs](#structs)
   - [Option](#option)
+  - [Pair](#pair)
 
 ## Install
 
