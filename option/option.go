@@ -58,6 +58,16 @@ func GetOrElse[T any](onNone fp.Lazy[T]) func(Option[T]) T {
 	}
 }
 
+// Extracts the value out of the Option, if it exists. Otherwise panics
+func Get[T any](option Option[T]) T {
+	if IsNone(option) {
+		panic("Can't extract a value out of None")
+	}
+
+	return option.value
+
+}
+
 // Extracts the value out of the Option as a pointer, if it exists. Otherwise returns a nil pointer
 func ToPtr[T any](option Option[T]) *T {
 	if IsNone(option) {
