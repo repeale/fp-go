@@ -43,8 +43,8 @@ func GetOrElse[T any](onNone fp.Lazy[T]) func(Option[T]) T {
 }
 
 // Extracts the value out of the Option, if it exists, with a function. Otherwise returns the function with a default value
-func Match[T any](onNone fp.Lazy[T], onSome fp.LazyVal[T]) func(Option[T]) T {
-	return func(option Option[T]) T {
+func Match[T, R any](onNone fp.Lazy[R], onSome func(value T) R) func(Option[T]) R {
+	return func(option Option[T]) R {
 
 		if IsNone(option) {
 			return onNone()
@@ -55,11 +55,11 @@ func Match[T any](onNone fp.Lazy[T], onSome fp.LazyVal[T]) func(Option[T]) T {
 }
 
 // Execute the function on the Option value if it exists. Otherwise return the empty Option itself
-func Map[T any](fn fp.LazyVal[T]) func(o Option[T]) Option[T] {
-	return func(option Option[T]) Option[T] {
+func Map[T, R any](fn func(value T) R) func(o Option[T]) Option[R] {
+	return func(option Option[T]) Option[R] {
 
 		if IsNone(option) {
-			return None[T]()
+			return None[R]()
 		}
 
 		return Some(fn(option.value))

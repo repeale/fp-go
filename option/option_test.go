@@ -1,6 +1,7 @@
 package opt
 
 import (
+	"strconv"
 	"testing"
 )
 
@@ -59,9 +60,14 @@ func TestGetOrElse_None(t *testing.T) {
 }
 
 func TestMatch_onSome(t *testing.T) {
-	res := Match(func() string { return "onNone" }, func(x string) string { return x + x })(Some("val"))
-	if res != "valval" {
-		t.Error("Match should return the onSome() value. Received:", res)
+	res := Match(
+		func() int { return 0 },
+		func(x string) int {
+			intVar, _ := strconv.Atoi(x)
+			return 1 + intVar
+		})(Some("10"))
+	if res != 11 {
+		t.Error("Match should return the onSome() value, through the callback function. Received:", res)
 	}
 }
 
@@ -73,9 +79,13 @@ func TestMatch_onNone(t *testing.T) {
 }
 
 func TestMap_Some(t *testing.T) {
-	res := Map(func(x string) string { return x + x })(Some("val"))
-	if res.value != "valval" {
-		t.Error("Map should return the result of the callback function. Received:", res.value)
+	res := Map(
+		func(x string) int {
+			intVar, _ := strconv.Atoi(x)
+			return 1 + intVar
+		})(Some("10"))
+	if res.value != 11 {
+		t.Error("Map should return the a Some with the result of the callback function over the value. Received:", res.value)
 	}
 }
 
