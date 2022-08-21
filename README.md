@@ -6,6 +6,10 @@
 
 Fp-go is a collection of Functional Programming helpers powered by Golang [1.18](https://tip.golang.org/doc/go1.18)+ [generics](https://tip.golang.org/doc/go1.18#generics).
 
+**Inspired by**
+
+- [fp-ts](https://github.com/gcanti/fp-ts)
+
 <p align="center">
   <img 
     width="500"
