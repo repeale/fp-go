@@ -192,7 +192,7 @@ fp.Some(func(x int) bool { return x < 0 })([]int{1, 2, 3})
 
 Performs right-to-left function composition.
 
-Variations `Compose2`, `Compose3` and `Compose4` stating the number of functions you are going to compose.
+Variations `Compose2` to `Compose16` stating the number of functions you are going to compose.
 
 ```go
 func isPositive(x int) bool {
@@ -212,7 +212,7 @@ Compose2(fp.Filter(isPositive), fp.Map(sumTwo))([]int{1, 2, 3, -1})
 
 Performs left-to-right function composition.
 
-Variations `Pipe2`, `Pipe3` and `Pipe4` stating the number of functions you are going to compose.
+Variations `Pipe2` to `Pipe16` stating the number of functions you are going to compose.
 
 ```go
 func isPositive(x int) bool {
