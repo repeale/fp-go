@@ -11,7 +11,7 @@ Fp-go is a collection of Functional Programming helpers powered by Golang [1.18]
 - [fp-ts](https://github.com/gcanti/fp-ts)
 
 <p align="center">
-  <img 
+  <img
     width="500"
     height="313"
     src="https://user-images.githubusercontent.com/9580458/162070974-4367f4b8-bb3d-451c-8114-dd578bad4e46.png"
@@ -232,7 +232,7 @@ Pipe2(fp.Filter(isPositive), fp.Map(sumTwo))([]int{1, 2, 3, -1})
 
 Allow to transfrom a function that receives a certain amount of params in single functions that take one single param each.
 
-Variations `Curry2`, `Curry3` and `Curry4` stating the number of params will be curried individually.
+Variations `Curry2` to `Curry16` stating the number of params will be curried individually.
 
 ```go
 curryedSum := Curry2(func(a int, b int) int { return a + b })
