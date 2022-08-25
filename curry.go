@@ -3,7 +3,7 @@ package fp
 // Allow to transform a function that receives 2 params in a sequence of unary functions
 func Curry2[T1, T2, R any](fn func(T1, T2) R) func(T1) func(T2) R {
 	return func(t1 T1) func(T2) R {
-		return func(t2 T2)  R {
+		return func(t2 T2) R {
 			return fn(t1, t2)
 		}
 	}
@@ -13,7 +13,7 @@ func Curry2[T1, T2, R any](fn func(T1, T2) R) func(T1) func(T2) R {
 func Curry3[T1, T2, T3, R any](fn func(T1, T2, T3) R) func(T1) func(T2) func(T3) R {
 	return func(t1 T1) func(T2) func(T3) R {
 		return func(t2 T2) func(T3) R {
-			return func(t3 T3)  R {
+			return func(t3 T3) R {
 				return fn(t1, t2, t3)
 			}
 		}
@@ -25,7 +25,7 @@ func Curry4[T1, T2, T3, T4, R any](fn func(T1, T2, T3, T4) R) func(T1) func(T2) 
 	return func(t1 T1) func(T2) func(T3) func(T4) R {
 		return func(t2 T2) func(T3) func(T4) R {
 			return func(t3 T3) func(T4) R {
-				return func(t4 T4)  R {
+				return func(t4 T4) R {
 					return fn(t1, t2, t3, t4)
 				}
 			}
@@ -39,7 +39,7 @@ func Curry5[T1, T2, T3, T4, T5, R any](fn func(T1, T2, T3, T4, T5) R) func(T1) f
 		return func(t2 T2) func(T3) func(T4) func(T5) R {
 			return func(t3 T3) func(T4) func(T5) R {
 				return func(t4 T4) func(T5) R {
-					return func(t5 T5)  R {
+					return func(t5 T5) R {
 						return fn(t1, t2, t3, t4, t5)
 					}
 				}
@@ -55,7 +55,7 @@ func Curry6[T1, T2, T3, T4, T5, T6, R any](fn func(T1, T2, T3, T4, T5, T6) R) fu
 			return func(t3 T3) func(T4) func(T5) func(T6) R {
 				return func(t4 T4) func(T5) func(T6) R {
 					return func(t5 T5) func(T6) R {
-						return func(t6 T6)  R {
+						return func(t6 T6) R {
 							return fn(t1, t2, t3, t4, t5, t6)
 						}
 					}
@@ -73,7 +73,7 @@ func Curry7[T1, T2, T3, T4, T5, T6, T7, R any](fn func(T1, T2, T3, T4, T5, T6, T
 				return func(t4 T4) func(T5) func(T6) func(T7) R {
 					return func(t5 T5) func(T6) func(T7) R {
 						return func(t6 T6) func(T7) R {
-							return func(t7 T7)  R {
+							return func(t7 T7) R {
 								return fn(t1, t2, t3, t4, t5, t6, t7)
 							}
 						}
@@ -93,7 +93,7 @@ func Curry8[T1, T2, T3, T4, T5, T6, T7, T8, R any](fn func(T1, T2, T3, T4, T5, T
 					return func(t5 T5) func(T6) func(T7) func(T8) R {
 						return func(t6 T6) func(T7) func(T8) R {
 							return func(t7 T7) func(T8) R {
-								return func(t8 T8)  R {
+								return func(t8 T8) R {
 									return fn(t1, t2, t3, t4, t5, t6, t7, t8)
 								}
 							}
@@ -115,7 +115,7 @@ func Curry9[T1, T2, T3, T4, T5, T6, T7, T8, T9, R any](fn func(T1, T2, T3, T4, T
 						return func(t6 T6) func(T7) func(T8) func(T9) R {
 							return func(t7 T7) func(T8) func(T9) R {
 								return func(t8 T8) func(T9) R {
-									return func(t9 T9)  R {
+									return func(t9 T9) R {
 										return fn(t1, t2, t3, t4, t5, t6, t7, t8, t9)
 									}
 								}
@@ -139,7 +139,7 @@ func Curry10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, R any](fn func(T1, T2, T3,
 							return func(t7 T7) func(T8) func(T9) func(T10) R {
 								return func(t8 T8) func(T9) func(T10) R {
 									return func(t9 T9) func(T10) R {
-										return func(t10 T10)  R {
+										return func(t10 T10) R {
 											return fn(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10)
 										}
 									}
@@ -165,7 +165,7 @@ func Curry11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, R any](fn func(T1, T2
 								return func(t8 T8) func(T9) func(T10) func(T11) R {
 									return func(t9 T9) func(T10) func(T11) R {
 										return func(t10 T10) func(T11) R {
-											return func(t11 T11)  R {
+											return func(t11 T11) R {
 												return fn(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11)
 											}
 										}
@@ -193,7 +193,7 @@ func Curry12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, R any](fn func(T
 									return func(t9 T9) func(T10) func(T11) func(T12) R {
 										return func(t10 T10) func(T11) func(T12) R {
 											return func(t11 T11) func(T12) R {
-												return func(t12 T12)  R {
+												return func(t12 T12) R {
 													return fn(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12)
 												}
 											}
@@ -223,7 +223,7 @@ func Curry13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, R any](fn f
 										return func(t10 T10) func(T11) func(T12) func(T13) R {
 											return func(t11 T11) func(T12) func(T13) R {
 												return func(t12 T12) func(T13) R {
-													return func(t13 T13)  R {
+													return func(t13 T13) R {
 														return fn(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13)
 													}
 												}
@@ -255,7 +255,7 @@ func Curry14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, R any]
 											return func(t11 T11) func(T12) func(T13) func(T14) R {
 												return func(t12 T12) func(T13) func(T14) R {
 													return func(t13 T13) func(T14) R {
-														return func(t14 T14)  R {
+														return func(t14 T14) R {
 															return fn(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14)
 														}
 													}
@@ -289,7 +289,7 @@ func Curry15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, R
 												return func(t12 T12) func(T13) func(T14) func(T15) R {
 													return func(t13 T13) func(T14) func(T15) R {
 														return func(t14 T14) func(T15) R {
-															return func(t15 T15)  R {
+															return func(t15 T15) R {
 																return fn(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15)
 															}
 														}
@@ -325,7 +325,7 @@ func Curry16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T
 													return func(t13 T13) func(T14) func(T15) func(T16) R {
 														return func(t14 T14) func(T15) func(T16) R {
 															return func(t15 T15) func(T16) R {
-																return func(t16 T16)  R {
+																return func(t16 T16) R {
 																	return fn(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16)
 																}
 															}
