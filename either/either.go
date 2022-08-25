@@ -29,6 +29,17 @@ func IsRight[L, R any](e Either[L, R]) bool {
 	return !e.isLeft
 }
 
+func Exists[L, R any](predicate func(right R) bool) func(Either[L, R]) bool {
+	return func(e Either[L, R]) bool {
+
+		if IsLeft(e) {
+			return false
+		}
+
+		return predicate(e.right)
+	}
+}
+
 func Flatten[L, R any](e Either[L, Either[L, R]]) Either[L, R] {
 
 	if IsLeft(e) {
