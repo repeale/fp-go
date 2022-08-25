@@ -84,27 +84,27 @@ func TestMap_Some(t *testing.T) {
 			intVar, _ := strconv.Atoi(x)
 			return 1 + intVar
 		})(Some("10"))
-	if res.value != 11 {
-		t.Error("Map should return the a Some with the result of the callback function over the value. Received:", res.value)
+	if res.Value != 11 {
+		t.Error("Map should return the a Some with the result of the callback function over the value. Received:", res.Value)
 	}
 }
 
 func TestMap_None(t *testing.T) {
 	res := Map(func(x string) string { return x + x })(None[string]())
 	if res.hasValue != false {
-		t.Error("Map should return a None value. Received:", res.value)
+		t.Error("Map should return a None value. Received:", res.Value)
 	}
 }
 
 func TestChain_Some(t *testing.T) {
 	res := Chain(func(x string) Option[string] { return Some(x + x) })(Some("val"))
 	if res.hasValue != true {
-		t.Error("Chain should return a Some of string. Received:", res.value)
+		t.Error("Chain should return a Some of string. Received:", res.Value)
 	}
 }
 func TestChain_None(t *testing.T) {
 	res := Chain(func(x string) Option[string] { return Some(x + x) })(None[string]())
 	if res.hasValue != false {
-		t.Error("Chain should return a None value. Received:", res.value)
+		t.Error("Chain should return a None value. Received:", res.Value)
 	}
 }

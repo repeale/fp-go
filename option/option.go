@@ -6,7 +6,7 @@ import (
 
 // Base struct
 type Option[T any] struct {
-	value    T
+	Value    T
 	hasValue bool
 }
 
@@ -38,7 +38,7 @@ func Chain[A, B any](fn func(a A) Option[B]) func(Option[A]) Option[B] {
 			return None[B]()
 		}
 
-		return fn(a.value)
+		return fn(a.Value)
 	}
 }
 
@@ -50,7 +50,7 @@ func GetOrElse[T any](onNone fp.Lazy[T]) func(Option[T]) T {
 			return onNone()
 		}
 
-		return o.value
+		return o.Value
 	}
 }
 
@@ -62,7 +62,7 @@ func Map[T, R any](fn func(value T) R) func(o Option[T]) Option[R] {
 			return None[R]()
 		}
 
-		return Some(fn(o.value))
+		return Some(fn(o.Value))
 	}
 }
 
@@ -74,6 +74,6 @@ func Match[T, R any](onNone fp.Lazy[R], onSome func(value T) R) func(Option[T]) 
 			return onNone()
 		}
 
-		return onSome(o.value)
+		return onSome(o.Value)
 	}
 }

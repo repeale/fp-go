@@ -1,5 +1,7 @@
 package either
 
+import opt "github.com/repeale/fp-go/option"
+
 // Base struct
 type Either[L, R any] struct {
 	isLeft bool
@@ -47,6 +49,29 @@ func Flatten[L, R any](e Either[L, Either[L, R]]) Either[L, R] {
 	}
 
 	return e.right
+}
+
+func FromOption[L, R any](onNone func() L) func(o opt.Option[R]) Either[L, R] {
+	return func(o opt.Option[R]) Either[L, R] {
+
+		if opt.IsNone(o) {
+			return Left[L, R](onNone())
+		}
+
+		return Right[L](o.Value)
+
+	}
+}
+
+func FromPredicate[L, R any](predicate func(value R) bool, onLeft func() L) func(R) Either[L, R] {
+	return func(value R) Either[L, R] {
+
+		if predicate(value) {
+			return Right[L](value)
+		}
+
+		return Left[L, R](onLeft())
+	}
 }
 
 func GetOrElse[L, R any](onLeft func(left L) R) func(Either[L, R]) R {
