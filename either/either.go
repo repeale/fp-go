@@ -51,6 +51,26 @@ func Flatten[L, R any](e Either[L, Either[L, R]]) Either[L, R] {
 	return e.right
 }
 
+func FromError[R any](value R, e error) Either[error, R] {
+
+	if e != nil {
+		return Left[error, R](e)
+	}
+
+	return Right[error](value)
+}
+
+func FromErrorFn[R any](fn func() (value R, e error)) Either[error, R] {
+
+	val, err := fn()
+
+	if err != nil {
+		return Left[error, R](err)
+	}
+
+	return Right[error](val)
+}
+
 func FromOption[L, R any](onNone func() L) func(o opt.Option[R]) Either[L, R] {
 	return func(o opt.Option[R]) Either[L, R] {
 
