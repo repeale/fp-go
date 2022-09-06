@@ -5,6 +5,10 @@ import (
 	"testing"
 )
 
+func isOdd(n int) bool {
+	return n%2 != 0
+}
+
 func TestSome(t *testing.T) {
 	res := Some("val")
 	if res.hasValue != true {
@@ -106,5 +110,87 @@ func TestChain_None(t *testing.T) {
 	res := Chain(func(x string) Option[string] { return Some(x + x) })(None[string]())
 	if res.hasValue != false {
 		t.Error("Chain should return a None value. Received:", res.Value)
+	}
+}
+
+func TestExists_None(t *testing.T) {
+	res := Exists(isOdd)(None[int]())
+	if res != false {
+		t.Error("Exists should return false. Received:", res)
+	}
+}
+func TestExists_Some_TruePredicate(t *testing.T) {
+	res := Exists(isOdd)(Some(1))
+	if res != true {
+		t.Error("Exists should mach the predicate and return true. Received:", res)
+	}
+}
+
+func TestExists_Some_FalsePredicate(t *testing.T) {
+	res := Exists(isOdd)(Some(2))
+	if res != false {
+		t.Error("Exists should not match the predicate and return true. Received:", res)
+	}
+}
+
+func TestFlatten_SomeSome(t *testing.T) {
+	res := Flatten(Some(Some(1)))
+	if res.hasValue != true {
+		t.Error("Flatten should return the inner Some. Received:", res.hasValue)
+	}
+}
+
+func TestFlatten_SomeNone(t *testing.T) {
+	res := Flatten(Some(None[int]()))
+	if res.hasValue != false {
+		t.Error("Flatten should return the inner None. Received:", res.hasValue)
+	}
+}
+
+func TestFlatten_None(t *testing.T) {
+	res := Flatten(None[Option[int]]())
+	if res.hasValue != false {
+		t.Error("Flatten should return a None. Received:", res.hasValue)
+	}
+}
+
+func TestFromPredicate_None(t *testing.T) {
+	res := FromPredicate(isOdd)(2)
+	if res.hasValue != false {
+		t.Error("FromPredicate should generate a None. Received:", res.hasValue)
+	}
+}
+func TestFromPredicate_Some(t *testing.T) {
+	res := FromPredicate(isOdd)(1)
+	if res.hasValue != true {
+		t.Error("FromPredicate should generate a Some. Received:", res.hasValue)
+	}
+}
+
+func TestFromError_error(t *testing.T) {
+	res := FromError(strconv.Atoi("a"))
+	if res.hasValue != false {
+		t.Error("FromError should generate a None. Received:", res.hasValue)
+	}
+}
+
+func TestFromError_success(t *testing.T) {
+	res := FromError(strconv.Atoi("1"))
+	if res.hasValue != true {
+		t.Error("FromError should generate a Some. Received:", res.hasValue)
+	}
+}
+
+func TestFromErrorFn_error(t *testing.T) {
+	res := FromErrorFn(func() (int, error) { return strconv.Atoi("a") })
+	if res.hasValue != false {
+		t.Error("FromErrorFn should generate a None. Received:", res.hasValue)
+	}
+}
+
+func TestFromErrorFn_success(t *testing.T) {
+	res := FromErrorFn(func() (int, error) { return strconv.Atoi("1") })
+	if res.hasValue != true {
+		t.Error("FromErrorFn should generate a Some. Received:", res.hasValue)
 	}
 }
