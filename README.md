@@ -37,6 +37,7 @@ Fp-go is a collection of Functional Programming helpers powered by Golang [1.18]
   - [Curry](#curry)
 - [Structs](#structs)
   - [Option](#option)
+  - [Pair](#pair)
 
 ## Install
 
@@ -247,3 +248,10 @@ Option represents encapsulation of an optional value, it might be used as the re
 You could instanciate an `opt.Option[T]` with a value with `opt.Some(val)`. If the value is missing you can use `opt.None[T]()`.
 
 Option exports `Some`, `None`, `IsSome`, `IsNone`, `GetOrElse`, `Match`, `Map`, `Chain`.
+
+
+#### Pair
+
+Pair allows you to group 2 values into a single struct. Can be used to make a function with multiple returns return a sigle wrapped value
+
+Pair exports `New`, `Fst`, `Snd`, `Get`, `MapFst`, `MapSnd`, `MapBoth`, `CheckFst`, `CheckSnd`, `CheckBoth`, `Merge`, `MergeC`, `Eq`, `Zip`.
