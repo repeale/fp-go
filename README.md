@@ -37,6 +37,7 @@ Fp-go is a collection of Functional Programming helpers powered by Golang [1.18]
   - [Curry](#curry)
 - [Structs](#structs)
   - [Option](#option)
+  - [Either](#either)
 
 ## Install
 
@@ -244,6 +245,12 @@ curryedSum(1)(2)
 #### Option
 
 Option represents encapsulation of an optional value, it might be used as the return type of functions which may or may not return a meaningful value when they are applied.
-You could instanciate an `opt.Option[T]` with a value with `opt.Some(val)`. If the value is missing you can use `opt.None[T]()`.
 
-Option exports `Some`, `None`, `IsSome`, `IsNone`, `GetOrElse`, `Match`, `Map`, `Chain`.
+Option exports `Some`, `None`, `IsSome`, `IsNone`, `Chain`, `Exists`, `Flatten`, `FromError`, `FromErrorFn`, `FromPredicate`, `GetOrElse`, `Map`, `Match`.
+
+#### Either
+
+Either represent a value that can have two possible types. It is common to see Either used to represent a success value `Right` or a failure value `Left`, although that doesn't have to be the case.
+An instance of `Either` is either an instance of `Left` or `Right`.
+
+Either exports `Left`, `Right`, `IsLeft`, `IsRight`, `Exists`, `Flatten`, `FromError`, `FromErrorFn`, `FromOption`, `FromPredicate`, `GetOrElse`, `Map`, `MapLeft`, `Match`,
