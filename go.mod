@@ -1,3 +1,3 @@
-module github.com/erdivartanovich/fp-go
+module github.com/repeale/fp-go
 
 go 1.18
