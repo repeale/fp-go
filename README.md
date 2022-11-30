@@ -160,7 +160,7 @@ fp.Map(func(x int64) string {
     return strconv.FormatInt(x, 10)
 })([]int64{1, 2, 3})
 
-// => []string{"1", "2", "3", "4"}
+// => []string{"1", "2", "3"}
 ```
 
 #### Reduce
